@@ -150,6 +150,7 @@ dependencies {
     implementation "com.facebook.react:react-native:+"  // From node_modules
     addUnimodulesDependencies()
     compile project(':react-native-app-auth')
+    implementation project(':@react-native-community_async-storage')
 }
 
 // Run this once to be able to run the application with BUCK
