@@ -68,7 +68,7 @@ const storeTokensAsync = async(authObj) => {
 
 const getTokensAsync = async() => {
   try {
-    const authObj = await AsyncStorage.getItem(AUTH_STORAGE_KEY+'asada');
+    const authObj = await AsyncStorage.getItem(AUTH_STORAGE_KEY);
     return JSON.parse(authObj);
   } catch(error) {
     console.log(error);
