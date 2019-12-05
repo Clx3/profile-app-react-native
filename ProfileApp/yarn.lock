@@ -5587,6 +5587,11 @@ react-is@^16.7.0, react-is@^16.8.1, react-is@^16.8.4, react-is@^16.8.6, react-is
   resolved "https://registry.yarnpkg.com/react-is/-/react-is-16.12.0.tgz#2cc0fe0fba742d97fd527c42a13bec4eeb06241c"
   integrity sha512-rPCkf/mWBtKc97aLL9/txD8DZdemK0vkA3JMLShjlJB3Pj3s+lpf1KaBzMfQrAmhMQB0n1cU/SUGgKKBCe837Q==
 
+react-native-app-auth@^4.4.0:
+  version "4.4.0"
+  resolved "https://registry.yarnpkg.com/react-native-app-auth/-/react-native-app-auth-4.4.0.tgz#fb8ea89095b49e8bd9205d78dbfb7c71cc40f5b3"
+  integrity sha512-rNGjhyK2oR4/dLGyauCJT3UOZn29BG14QfrZwlVBf/Bh941UZOe/0QH9KrtjEfMK6GQg6Tg2pslH6guVpvpW5A==
+
 react-native-branch@~3.0.1:
   version "3.0.1"
   resolved "https://registry.yarnpkg.com/react-native-branch/-/react-native-branch-3.0.1.tgz#5b07b61cbd290168cd3c3662e017ebe0f356d2ca"
