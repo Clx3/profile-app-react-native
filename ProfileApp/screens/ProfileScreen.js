@@ -1,15 +1,32 @@
 import React, {Component} from 'react';
+
 import {
   View,
-  Text
+  Text,
+  StyleSheet
 } from 'react-native';
 
-export default ProfileScreen = (props) => {
+import {
+  Avatar
+} from 'react-native-elements';
+
+import Icon from 'react-native-vector-icons/FontAwesome';
+
+export default function ProfileScreen(props) {
   return(
-    <View>
-      <Text>
-        Hello PROFILE
-      </Text>
+    <View style={styles.container}>
+      <Avatar
+        size="xlarge"
+        rounded title="?" />
+      <Text>You are signed in. Really epic application 5/5.</Text>
     </View>
   );
 }
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'center'
+  }
+})

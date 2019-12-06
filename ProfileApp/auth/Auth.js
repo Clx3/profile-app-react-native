@@ -11,12 +11,14 @@ const config = {
   scopes: ['openid', 'profile', 'email']
 };
 
-export const authorizeAsync = async() => {
+export const authorizeAsync = async(callback) => {
   try {
     const result = await authorize(config);
     await storeTokensAsync(result);
 
-    console.log(result);
+    if(callback)
+      callback();
+
   } catch(error) {
     console.log(error)
   }
@@ -48,8 +50,8 @@ const refreshAuthAsync = async({ refreshToken }) => {
     });
     
     if(authObj) {
-      storeTokensAsync(refreshResult);
-      return refreshResult;
+      storeTokensAsync(authObj);
+      return authObj;
     }
   } catch(error) {
     console.log(error);

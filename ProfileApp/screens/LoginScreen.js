@@ -1,6 +1,21 @@
 import React, { Component, useEffect } from 'react';
-import { StyleSheet, Text, View, Button } from 'react-native';
-import {authorizeAsync, getAuthAsync} from '../auth/Auth';
+
+import { 
+  StyleSheet, 
+  Text, 
+  View 
+} from 'react-native';
+
+import {
+  Button
+} from 'react-native-elements';
+
+import Icon from 'react-native-vector-icons/FontAwesome';
+
+import {
+  authorizeAsync,
+  getAuthAsync
+} from '../auth/Auth';
 
 export default LoginScreen = (props) => {
 
@@ -10,23 +25,41 @@ export default LoginScreen = (props) => {
     componentDidMount(props);
   }, []);
 
-  const onLoginPress = async() => {
-    await authorizeAsync();
-  }
-
   return (
     <View style={styles.container}>
-      <Text style={styles.welcome}>LOGIN</Text>
-      <Button title="Login with Google account" onPress={async() => await onLoginPress()}/>
+      <LoginButton />
     </View>
   );
 }
 
-const componentDidMount = async({ navigation }) => {
+async function componentDidMount({ navigation }) {
   const authObj = await getAuthAsync();
 
   if(authObj)
     navigation.navigate('App');
+}
+
+function LoginButton(props) {
+
+  const onLoginBtnPress = async() => {
+    await authorizeAsync(() => {
+      props.navigation.navigate('App');
+    })
+  }
+
+  return (
+    <Button 
+      icon={
+        <Icon
+          name="google"
+          size={25}
+          color="white"/>
+      }
+      iconRight
+      titleStyle={styles.loginBtnTitle}
+      title="Sign in with Google" 
+      onPress={() => onLoginBtnPress()}/>
+  );
 }
 
 const styles = StyleSheet.create({
@@ -36,9 +69,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     backgroundColor: '#F5FCFF',
   },
-  welcome: {
-    fontSize: 20,
-    textAlign: 'center',
-    margin: 10,
+  loginBtnTitle: {
+    marginRight: 10
   }
 });
