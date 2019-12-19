@@ -32,11 +32,11 @@ export default LoginScreen = (props) => {
   );
 }
 
-async function componentDidMount({ navigation }) {
+async function componentDidMount(props) {
   const authObj = await getAuthAsync();
 
   if(authObj)
-    navigation.navigate('App');
+    props.navigation.navigate('App');
 }
 
 function LoginButton(props) {
