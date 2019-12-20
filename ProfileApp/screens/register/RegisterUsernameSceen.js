@@ -9,9 +9,9 @@ import {
   Input,
 } from 'react-native-elements';
 import Icon from 'react-native-vector-icons/FontAwesome';
-import { getIsUsernameValid } from '../api/Api';
+import { getIsUsernameValid } from '../../api/Api';
 
-export default function RegisterScreen(props) {
+export default function RegisterUsernameScreen(props) {
   const [username, setUsername] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   const [isValidUsername, setIsValidUsername] = useState(null);
