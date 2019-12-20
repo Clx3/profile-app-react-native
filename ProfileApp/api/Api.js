@@ -23,3 +23,9 @@ export async function getProfile() {
   console.log(apiAxios.defaults.headers);
   return apiAxios.get('profile/me/');
 }
+
+export async function getIsUsernameValid(username) {
+  const apiAxios = await getAxiosAsync();
+
+  return apiAxios.get(`profile/isvalid/?username=${username}`);
+}

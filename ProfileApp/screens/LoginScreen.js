@@ -33,7 +33,7 @@ export default function LoginScreen(props) {
     const authObj = await getAuthAsync();
 
     if(authObj)
-      console.log(authObj)
+      redirectUser();
   }
 
   /**
