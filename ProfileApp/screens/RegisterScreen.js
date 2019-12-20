@@ -1,4 +1,4 @@
-import React, {Component, useState} from 'react';
+import React, {Component, useState, useEffect} from 'react';
 import { 
   View,
   StyleSheet,
@@ -14,31 +14,34 @@ import { getIsUsernameValid } from '../api/Api';
 export default function RegisterScreen(props) {
   const [username, setUsername] = useState('');
   const [isLoading, setIsLoading] = useState(false);
-  const [isValidUsername, setIsValidUsername] = useState(false);
+  const [isValidUsername, setIsValidUsername] = useState(null);
   const [errorMsg, setErrorMsg] = useState('');
 
   let usernameTimeoutId = null;
 
-  /**
-   * Called when the username input changes
-   */
-  function onUsernameInputChange(value) {
-    setUsername(value);
-    setIsValidUsername(false);
-    setIsLoading(true);
-
+  useEffect(() => {
     if(this.usernameTimeoutId) {
       clearInterval(this.usernameTimeoutId);
       this.usernameTimeoutId = null;
     }
 
-    this.usernameTimeoutId = setTimeout(async() => {
-      await validateUsername();
+    this.usernameTimeoutId = setTimeout(() => {
+      validateUsername();
     }, 1000);
+  }, [username]);
+
+  /**
+   * Called when the username input changes
+   */
+  function onUsernameInputChange(value) {
+    setIsLoading(true);
+    setIsValidUsername(false);
+    setUsername(value);
   }
 
   async function validateUsername() {
     if(username.length < 4) {
+      console.log(username)
       setErrorMsg('Username must be more than 3 characters long!');
       setIsValidUsername(false);
     } else {
@@ -49,7 +52,7 @@ export default function RegisterScreen(props) {
         if(response.data === true) {
           setIsValidUsername(true);
         } else {
-          setErrorMsg('This username is already taken! Try another one.')
+          setErrorMsg('This username is already taken. Try another one!')
         }
       } catch(error) {
         console.log(error);
@@ -63,12 +66,15 @@ export default function RegisterScreen(props) {
       return (
         <ActivityIndicator size="small" color="#00ff00" />
       );
-    } else if(isValidUsername === true) {
+    } else if(isValidUsername !== null && isValidUsername === true) {
       return (
         <Icon name='check' size={30} color='#00FF00' />
       );
+    } else if (isValidUsername !== null && isValidUsername === false) {
+      return (
+        <Icon name='times' size={30} color='#CC0000' />
+      );
     }
-
     return null;
   }
 
