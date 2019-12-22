@@ -1,24 +1,25 @@
 import React, {Component} from 'react';
+import { View, StyleSheet } from 'react-native';
+import { Avatar, Text } from 'react-native-elements';
 
-import {
-  View,
-  Text,
-  StyleSheet
-} from 'react-native';
-
-import {
-  Avatar
-} from 'react-native-elements';
-
-import Icon from 'react-native-vector-icons/FontAwesome';
 
 export default function ProfileScreen(props) {
-  return(
+  const { navigation } = props;
+  const profile = navigation.getParam('profile');
+
+  return (
     <View style={styles.container}>
       <Avatar
+        containerStyle={styles.avatarContainer}
         size="xlarge"
         rounded title="?" />
-      <Text>You are signed in. Really epic application 5/5.</Text>
+      <Text h4 style={styles.profileText}>{profile.username}</Text>
+      <View style={styles.descriptionContainer}>
+        <Text style={styles.label}>Description</Text>
+        <View style={styles.textContainer}>
+          <Text style={styles.text}>Liirum laarum lopsum lapsum lipsum.Liirum laarum lopsum lapsum lipsum.Liirum laarum lopsum lapsum lipsum.Liirum laarum lopsum lapsum lipsum.</Text>
+        </View>
+      </View>
     </View>
   );
 }
@@ -26,7 +27,41 @@ export default function ProfileScreen(props) {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center'
+    backgroundColor: '#061620',
+    alignItems: 'center'
+  },
+  avatarContainer: {
+    marginTop: 25,
+    marginBottom: 15
+  },
+  profileText: {
+    color: '#00F3B2'
+  },
+  descriptionContainer: {
+    margin: 10
+  },
+  label: {
+    alignSelf: 'flex-start',
+    fontWeight: 'bold',
+    color: '#00F3B2',
+    fontSize: 17,
+    paddingBottom: 3
+  },
+  textContainer: {
+    backgroundColor: '#5C5C5C',
+    borderRadius: 2,
+    padding: 5,
+    opacity: 0.5,
+    shadowColor: "#000",
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity: 0.25,
+    shadowRadius: 3.84,
+    elevation: 5
+  },
+  text: {
+    color:'white'
   }
 })
