@@ -10,9 +10,10 @@ import {
 } from 'react-native-elements';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import { getIsUsernameValid } from '../../api/Api';
+import { RegisterModel } from '../../model/RegisterModel';
 
 export default function RegisterUsernameScreen(props) {
-  const [username, setUsername] = useState('');
+  const [username, setUsername] = useState(RegisterModel.username);
   const [isLoading, setIsLoading] = useState(false);
   const [isValidUsername, setIsValidUsername] = useState(null);
   const [errorMsg, setErrorMsg] = useState('');
@@ -36,7 +37,9 @@ export default function RegisterUsernameScreen(props) {
   function onUsernameInputChange(value) {
     setIsLoading(true);
     setIsValidUsername(false);
-    setUsername(value);
+
+    RegisterModel.username = value;
+    setUsername(RegisterModel.username);
   }
 
   async function validateUsername() {

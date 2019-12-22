@@ -31,9 +31,10 @@ export default function LoginScreen(props) {
    */
   async function componentDidMount() {
     const authObj = await getAuthAsync();
+    console.log(authObj)
 
     if(authObj)
-      redirectUser();
+      await redirectUser();
   }
 
   /**
