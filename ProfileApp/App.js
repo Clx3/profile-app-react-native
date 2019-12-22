@@ -1,7 +1,7 @@
 import { createAppContainer, createSwitchNavigator } from 'react-navigation';
 import { createStackNavigator } from 'react-navigation-stack';
 import LoginScreen from './screens/LoginScreen';
-import ProfileScreen from './screens/ProfileScreen';
+import ProfileScreen from './screens/app/ProfileScreen';
 import RegisterUsernameScreen from './screens/register/RegisterUsernameSceen';
 import RegisterUserDetailsScreen from './screens/register/RegisterUserDetailsScreen';
 import { createMaterialTopTabNavigator } from 'react-navigation-tabs';

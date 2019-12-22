@@ -29,3 +29,12 @@ export async function getIsUsernameValid(username) {
 
   return apiAxios.get(`profile/isvalid/?username=${username}`);
 }
+
+export async function createProfile(username, description) {
+  const apiAxios = await getAxiosAsync();
+
+  return apiAxios.post('profile/', {
+    username: username,
+    description: description
+  });
+}

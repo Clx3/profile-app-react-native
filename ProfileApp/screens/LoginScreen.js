@@ -58,7 +58,7 @@ export default function LoginScreen(props) {
    */ 
   async function redirectUser() {
     const { navigation } = props;
-
+    console.log('asd')
     try {
       await getProfile();
       navigation.navigate('App');
