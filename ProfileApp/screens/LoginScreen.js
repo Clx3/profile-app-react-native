@@ -1,21 +1,8 @@
 import React, { Component, useEffect, useState } from 'react';
-
-import { 
-  StyleSheet, 
-  Text, 
-  View 
-} from 'react-native';
-
-import {
-  Button
-} from 'react-native-elements';
-
+import { StyleSheet, Text, View } from 'react-native';
+import { Button } from 'react-native-elements';
 import Icon from 'react-native-vector-icons/FontAwesome';
-
-import {
-  authorizeAsync,
-  getAuthAsync
-} from '../auth/Auth';
+import { authorizeAsync, getAuthAsync } from '../auth/Auth';
 import { getProfile } from '../api/Api';
 
 export default function LoginScreen(props) {
@@ -33,8 +20,8 @@ export default function LoginScreen(props) {
     const authObj = await getAuthAsync();
     console.log(authObj)
 
-    if(authObj)
-      await redirectUser();
+    //if(authObj)
+      //await redirectUser();
   }
 
   /**
@@ -60,8 +47,9 @@ export default function LoginScreen(props) {
     const { navigation } = props;
     console.log('asd')
     try {
-      await getProfile();
-      navigation.navigate('App');
+      const response = await getProfile();
+
+      navigation.navigate('Profile', { profile: response.data });
     } catch(error) {
       if(error.response.status) {
         switch(error.response.status) {
@@ -76,6 +64,9 @@ export default function LoginScreen(props) {
 
   return (
     <View style={styles.container}>
+      <View style={styles.logoContainer}>
+
+      </View>
       <LoginButton onPress={() => onLoginBtnPress()} />
     </View>
   );
@@ -100,9 +91,12 @@ function LoginButton(props) {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: 'center',
+    backgroundColor: '#303030',
     alignItems: 'center',
-    backgroundColor: '#F5FCFF',
+    justifyContent: 'center'
+  },
+  logoContainer: {
+
   },
   loginBtnTitle: {
     marginRight: 10
