@@ -1,6 +1,6 @@
 import React, { Component, useEffect, useState } from 'react';
 import { StyleSheet, Text, View } from 'react-native';
-import { Button } from 'react-native-elements';
+import { Button, Image } from 'react-native-elements';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import { authorizeAsync, getAuthAsync } from '../auth/Auth';
 import { getProfile } from '../api/Api';
@@ -20,8 +20,8 @@ export default function LoginScreen(props) {
     const authObj = await getAuthAsync();
     console.log(authObj)
 
-    //if(authObj)
-      //await redirectUser();
+    if(authObj)
+      await redirectUser();
   }
 
   /**
@@ -30,6 +30,7 @@ export default function LoginScreen(props) {
   async function onLoginBtnPress() {
     if(!isAuthenticating) {
       setIsAuthenticating(true);
+      console.log('VITTU')
 
       await authorizeAsync(() => {
         redirectUser()
@@ -45,11 +46,11 @@ export default function LoginScreen(props) {
    */ 
   async function redirectUser() {
     const { navigation } = props;
-    console.log('asd')
+
     try {
       const response = await getProfile();
 
-      navigation.navigate('Profile', { profile: response.data });
+      navigation.navigate('Friends', { profile: response.data });
     } catch(error) {
       if(error.response.status) {
         switch(error.response.status) {
@@ -65,16 +66,22 @@ export default function LoginScreen(props) {
   return (
     <View style={styles.container}>
       <View style={styles.logoContainer}>
-
+        <Image 
+          source={require('../assets/logo.png')}
+          style={{width: 300, height: 300}}
+        />
       </View>
-      <LoginButton onPress={() => onLoginBtnPress()} />
+      <View style={styles.loginBtnContainer}>
+        <Text style={styles.welcomeText}>Welcome! Please use one of the providers below to sign in.</Text>
+        <LoginButton onPress={() => onLoginBtnPress()} />
+      </View>
     </View>
   );
 }
 
 function LoginButton(props) {
   return (
-    <Button 
+    <Button
       icon={
         <Icon
           name="google"
@@ -90,13 +97,26 @@ function LoginButton(props) {
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
-    backgroundColor: '#303030',
-    alignItems: 'center',
-    justifyContent: 'center'
+    flex: 3,
+    backgroundColor: '#061620',
+    alignItems: 'center'
   },
-  logoContainer: {
-
+  logoStyle: {
+    width: 300,
+    height: 300,
+    resizeMode: 'contain'
+  },
+  welcomeText: {
+    textAlign: 'center',
+    fontWeight: 'bold',
+    color: '#00F3B2',
+    fontSize: 17,
+    paddingBottom: 10
+  },
+  loginBtnContainer: {
+    flex: 2,   
+    justifyContent: 'center',
+    paddingBottom: 50
   },
   loginBtnTitle: {
     marginRight: 10

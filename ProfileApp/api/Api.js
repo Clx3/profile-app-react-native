@@ -38,3 +38,9 @@ export async function createProfile(username, description) {
     description: description
   });
 }
+
+export async function getAllProfilesByUsernameSearch(searchText) {
+  const apiAxios = await getAxiosAsync();
+
+  return apiAxios.get(`profile/search/?searchText=${searchText}`);
+}
