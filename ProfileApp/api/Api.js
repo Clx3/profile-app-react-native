@@ -20,7 +20,6 @@ async function getAxiosAsync() {
 export async function getProfile() {
   const apiAxios = await getAxiosAsync();
 
-  console.log(apiAxios.defaults.headers);
   return apiAxios.get('profile/me/');
 }
 
@@ -55,4 +54,10 @@ export async function createFriend(friendId) {
   const apiAxios = await getAxiosAsync();
 
   return apiAxios.post(`friend/add/${friendId}`);
+}
+
+export async function deleteFriend(friendId) {
+  const apiAxios = await getAxiosAsync();
+
+  return apiAxios.delete(`friend/delete/${friendId}`);
 }

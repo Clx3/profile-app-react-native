@@ -2,7 +2,7 @@ import React, { Component, useState, useEffect } from 'react';
 import { View, StyleSheet, FlatList} from 'react-native';
 import { Text, ListItem } from 'react-native-elements';
 import Icon from 'react-native-vector-icons/FontAwesome';
-import { getFriends } from '../../../api/Api';
+import { getFriends, deleteFriend } from '../../../api/Api';
 
 export default function FriendsScreen(props) {
   const [listData, setListData] = useState([{id: '1', username: 'Mikko'}]); // Contains list of users friends
@@ -37,14 +37,15 @@ export default function FriendsScreen(props) {
         keyExtractor={item => `${item.id}`}
         renderItem={({item}) => 
           <FriendItem 
-            friend={item} />
+            friend={item}
+            friendRemoveCallback={async() => await updateListData()} />
         }/>
     </View>
   );
 }
 
 function FriendItem(props) {
-  const { friend } = props;
+  const { friend, friendRemoveCallback } = props;
 
   /**
    * Called when the message icon is pressed.
@@ -56,15 +57,23 @@ function FriendItem(props) {
   /**
    * Called when the remove button is pressed.
    */
-  function onRemoveFriendPress() {
-    alert(friend.id);
+  async function onRemoveFriendPressAsync() {
+    // TODO: add confirmation
+    try {
+      const response = await deleteFriend(friend.id);
+
+      alert('deleted!');
+      friendRemoveCallback(); // We need to use callback so we can refresh friend list after the friend removal
+    } catch(error) {
+      console.log(error);
+    }
   }
 
   function RightIcons() {
     return (
       <View style={styles.rightIconsContainer}>
         <Icon name='comment' size={27} color='#00F3B2' onPress={() => onSendMsgPress()} />
-        <Icon name='minus-circle' size={27} color='#993333' onPress={() => onRemoveFriendPress()} />
+        <Icon name='minus-circle' size={27} color='#993333' onPress={() => onRemoveFriendPressAsync()} />
       </View>
     );
   }
