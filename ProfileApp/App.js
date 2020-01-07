@@ -8,6 +8,7 @@ import { createMaterialTopTabNavigator } from 'react-navigation-tabs';
 import RegisterConfirmationScreen from './screens/register/RegisterConfirmationScreen';
 import { createDrawerNavigator } from 'react-navigation-drawer';
 import AddFriendScreen from './screens/app/friends/AddFriendScreen';
+import FriendsScreen from './screens/app/friends/FriendsScreen';
 
 // Implementation of HomeScreen, OtherScreen, SignInScreen, AuthLoadingScreen
 // goes here.
@@ -27,10 +28,21 @@ const RegisterStack = createMaterialTopTabNavigator(
   }
 );
 
+const FriendsTabs = createMaterialTopTabNavigator(
+  {
+    Friends: FriendsScreen,
+    AddFriend: AddFriendScreen
+  },
+  {
+    initialRouteName: 'Friends',
+    tabBarPosition: 'bottom'
+  }
+);
+
 const AppDrawerStack = createDrawerNavigator(
   {
     Profile: ProfileScreen,
-    Friends: AddFriendScreen
+    Friends: FriendsTabs
   },
   {
     drawerPosition: 'left'
