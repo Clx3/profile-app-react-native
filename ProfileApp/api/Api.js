@@ -45,6 +45,12 @@ export async function getAllProfilesByUsernameSearch(searchText) {
   return apiAxios.get(`profile/search/?searchText=${searchText}`);
 }
 
+export async function getFriends() {
+  const apiAxios = await getAxiosAsync();
+
+  return apiAxios.get('friend/');
+}
+
 export async function createFriend(friendId) {
   const apiAxios = await getAxiosAsync();
 
