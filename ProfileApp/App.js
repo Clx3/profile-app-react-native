@@ -7,7 +7,7 @@ import RegisterUserDetailsScreen from './screens/register/RegisterUserDetailsScr
 import { createMaterialTopTabNavigator } from 'react-navigation-tabs';
 import RegisterConfirmationScreen from './screens/register/RegisterConfirmationScreen';
 import { createDrawerNavigator } from 'react-navigation-drawer';
-import FriendsScreen from './screens/app/friends/FriendsScreen';
+import AddFriendScreen from './screens/app/friends/AddFriendScreen';
 
 // Implementation of HomeScreen, OtherScreen, SignInScreen, AuthLoadingScreen
 // goes here.
@@ -30,7 +30,7 @@ const RegisterStack = createMaterialTopTabNavigator(
 const AppDrawerStack = createDrawerNavigator(
   {
     Profile: ProfileScreen,
-    Friends: FriendsScreen
+    Friends: AddFriendScreen
   },
   {
     drawerPosition: 'left'
