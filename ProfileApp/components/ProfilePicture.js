@@ -1,7 +1,7 @@
 import React, { Component, useState, useEffect } from 'react';
 import {  Avatar } from 'react-native-elements';
 import { API_BASE_URL } from '../Constants';
-import { ActivityIndicator, Image } from 'react-native';
+import { ActivityIndicator } from 'react-native';
 import { getAuthAsync } from '../auth/Auth';
 
 /**
@@ -17,12 +17,11 @@ export default function ProfilePicture(props) {
   const [loadError, setLoadError] = useState(false);
 
   useEffect(() => {
-    updateImgSource();
+    updateImgSourceAsync();
   }, []);
 
-  async function updateImgSource() {
+  async function updateImgSourceAsync() {
     const { profileId } = props; // if set to -1, will indicate users own profile
-
     const authObj = await getAuthAsync();
 
     if(profileId === -1) {
