@@ -1,7 +1,8 @@
 import React, {Component} from 'react';
 import { View, StyleSheet } from 'react-native';
-import { Avatar, Text } from 'react-native-elements';
+import { Avatar, Text, Icon } from 'react-native-elements';
 import ProfilePicture from '../../components/ProfilePicture';
+import IconText from '../../components/IconText';
 
 
 export default function ProfileScreen(props) {
@@ -10,10 +11,7 @@ export default function ProfileScreen(props) {
 
   return (
     <View style={styles.container}>
-      <ProfilePicture
-        containerStyle={styles.avatarContainer}
-        size="xlarge"
-        rounded />
+      <ProfilePictureEditor />
       <Text h4 style={styles.profileText}>{profile.username}</Text>
       <View style={styles.descriptionContainer}>
         <Text style={styles.label}>Description</Text>
@@ -25,15 +23,49 @@ export default function ProfileScreen(props) {
   );
 }
 
+/**
+ * This component renders the profile picture and
+ * its edit buttons.
+ * 
+ * @param {*} props 
+ */
+function ProfilePictureEditor(props) {
+  return (
+    <View style={styles.profilePictureEditorContainer}>
+      <ProfilePicture
+        containerStyle={styles.avatarContainer}
+        size="xlarge"
+        rounded />
+      <View style={styles.photoIconsContainer}>
+        <IconText 
+          containerStyle={{marginRight: 10}} 
+          name='camera' 
+          text={'Take photo'} 
+          onPress={() => alert('TODO')}/>
+        <IconText 
+          containerStyle={{marginLeft: 10}} 
+          name='image' 
+          text={'Select photo'}
+          onPress={() => alert('TODO')} />
+      </View>
+    </View>
+  );
+}
+
 const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#061620',
     alignItems: 'center'
   },
-  avatarContainer: {
+  profilePictureEditorContainer: {
     marginTop: 25,
     marginBottom: 15
+  },
+  photoIconsContainer: {
+    flexDirection: 'row',
+    alignSelf: 'center',
+    marginTop: 15
   },
   profileText: {
     color: '#00F3B2'
