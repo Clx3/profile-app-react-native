@@ -4,6 +4,7 @@ import { createAppContainer, createSwitchNavigator } from 'react-navigation';
 import { createStackNavigator } from 'react-navigation-stack';
 import LoginScreen from './screens/LoginScreen';
 import ProfileScreen from './screens/app/ProfileScreen';
+import CameraScreen from './screens/app/profile/CameraScreen';
 import RegisterUsernameScreen from './screens/register/RegisterUsernameSceen';
 import RegisterUserDetailsScreen from './screens/register/RegisterUserDetailsScreen';
 import { createMaterialTopTabNavigator } from 'react-navigation-tabs';
@@ -13,6 +14,7 @@ import AddFriendScreen from './screens/app/friends/AddFriendScreen';
 import FriendsScreen from './screens/app/friends/FriendsScreen';
 import HomeScreen from './screens/home/HomeScreen';
 import Icon from 'react-native-vector-icons/FontAwesome';
+import PictureReviewScreen from './screens/app/profile/PictureReviewScreen';
 
 const defaultNavigationOptions = (navigation, title) => {
   return {
@@ -82,6 +84,24 @@ const ProfileStack = createStackNavigator({
   ProfileScr: {
     screen: ProfileScreen,
     navigationOptions: ({navigation}) => (defaultNavigationOptions(navigation, 'Profile'))
+  },
+  CameraScr: {
+    screen: CameraScreen,
+    navigationOptions: ({navigation}) => ({
+      headerStyle: {
+        backgroundColor: '#061620'
+      },
+      headerTintColor: '#FFFFFF'
+    })
+  },
+  PictureReviewScr: {
+    screen: PictureReviewScreen,
+    navigationOptions: ({navigation}) => ({
+      headerStyle: {
+        backgroundColor: '#061620'
+      },
+      headerTintColor: '#FFFFFF'
+    })
   }
 });
 

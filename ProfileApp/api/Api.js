@@ -61,3 +61,20 @@ export async function deleteFriend(friendId) {
 
   return apiAxios.delete(`friend/delete/${friendId}`);
 }
+
+export async function postImage(uri) {
+  const apiAxios = await getAxiosAsync();
+
+  let formData = new FormData();
+  formData.append('file', {
+    uri: uri,
+    name: 'tempimg.jpg',
+    type: 'image/jpeg'
+  });
+
+  return apiAxios.post('profile/image/', formData, {
+    headers: {
+      'Content-Type': 'multipart/form-data'
+    }
+  });
+}

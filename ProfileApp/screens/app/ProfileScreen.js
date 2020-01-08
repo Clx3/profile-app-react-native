@@ -1,8 +1,9 @@
 import React, {Component} from 'react';
 import { View, StyleSheet } from 'react-native';
-import { Avatar, Text, Icon } from 'react-native-elements';
+import { Text, Icon } from 'react-native-elements';
 import ProfilePicture from '../../components/ProfilePicture';
 import IconText from '../../components/IconText';
+import { Permissions } from 'react-native-unimodules';
 
 
 export default function ProfileScreen(props) {
@@ -11,8 +12,9 @@ export default function ProfileScreen(props) {
 
   return (
     <View style={styles.container}>
-      <ProfilePictureEditor />
       <Text h4 style={styles.profileText}>{profile.username}</Text>
+      <ProfilePictureEditor
+        navigation={navigation}/>
       <View style={styles.descriptionContainer}>
         <Text style={styles.label}>Description</Text>
         <View style={styles.textContainer}>
@@ -30,6 +32,18 @@ export default function ProfileScreen(props) {
  * @param {*} props 
  */
 function ProfilePictureEditor(props) {
+  const { navigation } = props;
+
+  async function onCameraBtnPressAsync() {
+    const { status } = await Permissions.askAsync(Permissions.CAMERA);
+
+    if(status === 'granted') {
+      navigation.navigate('CameraScr');
+    } else {
+      //TODO: handle this
+    }
+  }
+
   return (
     <View style={styles.profilePictureEditorContainer}>
       <ProfilePicture
@@ -41,7 +55,7 @@ function ProfilePictureEditor(props) {
           containerStyle={{marginRight: 10}} 
           name='camera' 
           text={'Take photo'} 
-          onPress={() => alert('TODO')}/>
+          onPress={async() => await onCameraBtnPressAsync()}/>
         <IconText 
           containerStyle={{marginLeft: 10}} 
           name='image' 
@@ -68,6 +82,7 @@ const styles = StyleSheet.create({
     marginTop: 15
   },
   profileText: {
+    marginTop: 15,
     color: '#00F3B2'
   },
   descriptionContainer: {
