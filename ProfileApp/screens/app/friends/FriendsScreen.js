@@ -88,10 +88,6 @@ function FriendItem(props) {
   );
 }
 
-FriendsScreen.navigationOptions = {
-  title: 'My friends',
-};
-
 const styles = StyleSheet.create({
   container: {
     flex: 1,
