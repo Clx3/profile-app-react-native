@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import { View, StyleSheet } from 'react-native';
 import { Avatar, Text } from 'react-native-elements';
+import ProfilePicture from '../../components/ProfilePicture';
 
 
 export default function ProfileScreen(props) {
@@ -9,10 +10,10 @@ export default function ProfileScreen(props) {
 
   return (
     <View style={styles.container}>
-      <Avatar
+      <ProfilePicture
         containerStyle={styles.avatarContainer}
         size="xlarge"
-        rounded title="?" />
+        rounded />
       <Text h4 style={styles.profileText}>{profile.username}</Text>
       <View style={styles.descriptionContainer}>
         <Text style={styles.label}>Description</Text>
