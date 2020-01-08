@@ -1,3 +1,5 @@
+import React from 'react';
+import { Image } from 'react-native';
 import { createAppContainer, createSwitchNavigator } from 'react-navigation';
 import { createStackNavigator } from 'react-navigation-stack';
 import LoginScreen from './screens/LoginScreen';
@@ -9,9 +11,39 @@ import RegisterConfirmationScreen from './screens/register/RegisterConfirmationS
 import { createDrawerNavigator } from 'react-navigation-drawer';
 import AddFriendScreen from './screens/app/friends/AddFriendScreen';
 import FriendsScreen from './screens/app/friends/FriendsScreen';
+import HomeScreen from './screens/home/HomeScreen';
+import Icon from 'react-native-vector-icons/FontAwesome';
 
-// Implementation of HomeScreen, OtherScreen, SignInScreen, AuthLoadingScreen
-// goes here.
+const defaultNavigationOptions = (navigation, title) => {
+  return {
+    title: title,
+    headerStyle: {
+      backgroundColor: '#061620'
+    },
+    headerTitleStyle: {
+      color: 'white',
+      fontWeight: 'bold',
+      fontSize: 23,
+    },
+    headerLeftContainerStyle: {
+      marginLeft: 10
+    },
+    headerLeft: (
+      <Icon 
+        name='align-justify' 
+        raised
+        size={27} 
+        color='white' 
+        onPress={() => navigation.openDrawer()}/>
+    ),
+    headerRight: (
+      <Image 
+        resizeMode='contain'
+        source={require('./assets/logo_small.png')} 
+        style={{width: 60, height: 60}} />
+    )
+  };
+}
 
 const AuthStack = createStackNavigator({ 
   Login: LoginScreen 
@@ -39,19 +71,52 @@ const FriendsTabs = createMaterialTopTabNavigator(
   }
 );
 
+const HomeStack = createStackNavigator({
+  HomeScr: {
+    screen: HomeScreen,
+    navigationOptions: ({navigation}) => (defaultNavigationOptions(navigation, 'Home'))
+  }
+});
+
+const ProfileStack = createStackNavigator({
+  ProfileScr: {
+    screen: ProfileScreen,
+    navigationOptions: ({navigation}) => (defaultNavigationOptions(navigation, 'Profile'))
+  }
+});
+
+const FriendsStack = createStackNavigator({
+  FriendsScr: {
+    screen: FriendsTabs,
+    navigationOptions: ({navigation}) => (defaultNavigationOptions(navigation, 'Friends'))
+  }
+})
+
 const AppDrawerStack = createDrawerNavigator(
   {
-    Profile: ProfileScreen,
-    Friends: FriendsTabs
+    Home: HomeStack,
+    Profile: ProfileStack,
+    FriendsS: FriendsStack
   },
   {
     drawerPosition: 'left'
   }
 );
 
-const AppStack = createStackNavigator({ 
-  AppDrawer: AppDrawerStack
-});
+/**
+ * 'Main' App navigation. Contains a single DrawerNavigation which contains
+ * nested StackNavigators. Reasoning for this is that we need to nest our screens
+ * inside StackNavigators so we can include the header bar and modify them invidually
+ * inside our screens.
+ */
+const AppStack = createStackNavigator(
+  { 
+    AppDrawer: AppDrawerStack
+  },
+  {
+    headerMode: 'none'
+  }
+);
 
 export default createAppContainer(
   createSwitchNavigator(
