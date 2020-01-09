@@ -47,31 +47,76 @@ const defaultNavigationOptions = (navigation, title) => {
   };
 }
 
+const defaultBottomTabNavigationOptions = () => {
+  return {
+    keyboardHidesTabBar: true,
+    activeTintColor: '#00f3b2',
+    inactiveTintColor: '#009970',
+    inactiveBackgroundColor: '#061620',
+    activeBackgroundColor: '#0c2c40'
+  }
+}
+
+const tapBarIcon = (icon, tintColor) => {
+  return (
+    <Icon name={icon} size={27} color={tintColor}/>
+  );
+}
+
 const AuthStack = createStackNavigator({ 
   Login: LoginScreen 
 });
 
-const RegisterStack = createMaterialTopTabNavigator(
+const RegisterStack = createBottomTabNavigator(
   {
-    Username: RegisterUsernameScreen,
-    UserDetails: RegisterUserDetailsScreen,
-    Confirmation: RegisterConfirmationScreen
+    Username: {
+      screen: RegisterUsernameScreen,
+      navigationOptions: {
+        title: 'Username',
+        tabBarIcon: ({focused, tintColor}) => tapBarIcon('user', tintColor)
+      }
+    },
+    UserDetails: {
+      screen: RegisterUserDetailsScreen,
+      navigationOptions: {
+        title: 'Details',
+        tabBarIcon: ({focused, tintColor}) => tapBarIcon('address-card', tintColor)
+      }
+    },
+    Confirmation: {
+      screen: RegisterConfirmationScreen,
+      navigationOptions: {
+        title: 'Confirm',
+        tabBarIcon: ({focused, tintColor}) => tapBarIcon('check', tintColor)
+      }
+    }
   },
   {
-    initialRouteName: 'Username'
+    initialRouteName: 'Username',
+    tabBarOptions: defaultBottomTabNavigationOptions()
   }
 );
 
 const FriendsTabs = createBottomTabNavigator(
   {
-    Friends: FriendsScreen,
-    AddFriend: AddFriendScreen
+    Friends: {
+      screen: FriendsScreen,
+      navigationOptions: {
+        title: 'My Friends',
+        tabBarIcon: ({focused, tintColor}) => tapBarIcon('users', tintColor)
+      }
+    },
+    AddFriend: {
+      screen: AddFriendScreen,
+      navigationOptions: {
+        title: 'Add Friends',
+        tabBarIcon: ({focused, tintColor}) => tapBarIcon('address-book', tintColor)
+      }
+    }
   },
   {
-    initialRouteName: 'AddFriend',
-    tabBarOptions: {
-      keyboardHidesTabBar: true
-    }
+    initialRouteName: 'Friends',
+    tabBarOptions: defaultBottomTabNavigationOptions()
   }
 );
 
