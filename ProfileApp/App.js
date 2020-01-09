@@ -7,7 +7,7 @@ import ProfileScreen from './screens/app/ProfileScreen';
 import CameraScreen from './screens/app/profile/CameraScreen';
 import RegisterUsernameScreen from './screens/register/RegisterUsernameSceen';
 import RegisterUserDetailsScreen from './screens/register/RegisterUserDetailsScreen';
-import { createMaterialTopTabNavigator } from 'react-navigation-tabs';
+import { createMaterialTopTabNavigator, createBottomTabNavigator } from 'react-navigation-tabs';
 import RegisterConfirmationScreen from './screens/register/RegisterConfirmationScreen';
 import { createDrawerNavigator } from 'react-navigation-drawer';
 import AddFriendScreen from './screens/app/friends/AddFriendScreen';
@@ -62,14 +62,16 @@ const RegisterStack = createMaterialTopTabNavigator(
   }
 );
 
-const FriendsTabs = createMaterialTopTabNavigator(
+const FriendsTabs = createBottomTabNavigator(
   {
     Friends: FriendsScreen,
     AddFriend: AddFriendScreen
   },
   {
-    initialRouteName: 'Friends',
-    tabBarPosition: 'bottom'
+    initialRouteName: 'AddFriend',
+    tabBarOptions: {
+      keyboardHidesTabBar: true
+    }
   }
 );
 
@@ -116,7 +118,7 @@ const AppDrawerStack = createDrawerNavigator(
   {
     Home: HomeStack,
     Profile: ProfileStack,
-    FriendsS: FriendsStack
+    Friends: FriendsStack
   },
   {
     drawerPosition: 'left'
