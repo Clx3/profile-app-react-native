@@ -12,7 +12,7 @@ import RegisterConfirmationScreen from './screens/register/RegisterConfirmationS
 import { createDrawerNavigator } from 'react-navigation-drawer';
 import AddFriendScreen from './screens/app/friends/AddFriendScreen';
 import FriendsScreen from './screens/app/friends/FriendsScreen';
-import HomeScreen from './screens/home/HomeScreen';
+import HomeScreen from './screens/app/home/HomeScreen';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import PictureReviewScreen from './screens/app/profile/PictureReviewScreen';
 
@@ -97,7 +97,7 @@ const RegisterStack = createBottomTabNavigator(
     }
   },
   {
-    initialRouteName: 'Confirmation',
+    initialRouteName: 'Username',
     tabBarOptions: defaultBottomTabNavigationOptions()
   }
 );
