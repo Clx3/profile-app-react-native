@@ -146,6 +146,7 @@ function DescriptionEditor(props) {
           value={description}
           disabled={inputDisabled}
           inputStyle={styles.descriptionText}
+          maxLength={499}
           multiline
           onChangeText={(value) => setDescription(value)}
           inputContainerStyle={{ borderBottomWidth: 0 }} />
