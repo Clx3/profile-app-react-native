@@ -63,9 +63,14 @@ const tapBarIcon = (icon, tintColor) => {
   );
 }
 
-const AuthStack = createStackNavigator({ 
-  Login: LoginScreen 
-});
+const AuthStack = createStackNavigator(
+  { 
+    Login: LoginScreen 
+  },
+  {
+    headerMode: 'none'
+  }
+);
 
 const RegisterStack = createBottomTabNavigator(
   {
@@ -92,7 +97,7 @@ const RegisterStack = createBottomTabNavigator(
     }
   },
   {
-    initialRouteName: 'Username',
+    initialRouteName: 'Confirmation',
     tabBarOptions: defaultBottomTabNavigationOptions()
   }
 );
