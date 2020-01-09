@@ -3,10 +3,21 @@ import { Icon } from 'react-native-elements';
 import { View, Text, StyleSheet } from 'react-native';
 
 export default function IconText(props) {
-  const { name, text, size, color, onPress, textStyle, containerStyle, disabled } = props
+  const { 
+    name, 
+    text, 
+    size, 
+    color, 
+    onPress, 
+    textStyle, 
+    containerStyle, 
+    disabled,
+    textPosition
+  } = props
 
   return (
     <View style={containerStyle}>
+      {textPosition === 'top' ? <Text style={textStyle}>{text}</Text> : null}
       <Icon 
         type='font-awesome' 
         name={name} 
@@ -16,7 +27,7 @@ export default function IconText(props) {
         underlayColor={'rgba(0,0,0,0)'}
         disabled={disabled}
         onPress={() => onPress()}/>
-      <Text style={textStyle}>{text}</Text>
+      {textPosition === 'bottom' ? <Text style={textStyle}>{text}</Text> : null}
     </View>
   );
 }
@@ -40,5 +51,6 @@ IconText.defaultProps = {
   disabled: false,
   onPress: () => null,
   containerStyle: styles.container,
-  textStyle: styles.textStyle
+  textStyle: styles.textStyle,
+  textPosition: 'bottom'
 };
