@@ -1,11 +1,10 @@
-import React, { Component, useState, useRef } from 'react';
+import React, { Component, useState } from 'react';
 import { View, StyleSheet, FlatList, KeyboardAvoidingView } from 'react-native';
-import { Text, Input, ListItem } from 'react-native-elements';
+import { Text, Input } from 'react-native-elements';
 import CustomInput from '../../../components/CustomInput';
 import { getAllProfilesByUsernameSearch, createFriend } from '../../../api/Api';
-import ProfilePicture from '../../../components/ProfilePicture';
 import IconText from '../../../components/IconText';
-import { cutString } from '../../../Util';
+import ProfileListItem from '../../../components/ProfileListItem';
 
 /**
  * This screen component renders a screen where user is
@@ -75,9 +74,9 @@ export default function AddFriendScreen(props) {
           data={listData}
           keyExtractor={item => `${item.id}`}
           renderItem={({item}) => 
-            <FriendItem 
-              friend={item}
-              onAddFriendBtnPress={async(profile) => await onAddFriendBtnPressAsync(profile)} />
+            <ProfileListItem 
+              profile={item} 
+              RightIcon={<IconText name='plus-circle' text='Add friend' onPress={async() => await onAddFriendBtnPressAsync(item)} />}/>
           }
           ListEmptyComponent={<EmptyList/>} />
         </KeyboardAvoidingView>
@@ -100,27 +99,6 @@ function FriendSearch(props) {
       icon='search'
       value={props.value}
       onChangeText={(value) => onChangeText(value)}/>
-  );
-}
-
-/**
- * Renders an item to the friends search result list.
- * Basically a list item.
- * 
- * @param {*} props 
- */
-function FriendItem(props) {
-  const { friend, onAddFriendBtnPress } = props;
-
-  return (
-    <ListItem
-      title={friend.username}
-      containerStyle={styles.listItemContainer}
-      titleStyle={styles.listItemTitle}
-      leftIcon={<ProfilePicture profileId={friend.id} size="medium" rounded />}
-      rightIcon={<IconText name='plus-circle' text='Add friend' onPress={() => onAddFriendBtnPress(friend)} />}
-      subtitle={cutString(friend.description, 40)} 
-      subtitleStyle={styles.listItemSubtitle} />
   );
 }
 
@@ -153,23 +131,6 @@ const styles = StyleSheet.create({
     borderRadius: 3,
     backgroundColor: '#081e2b',
   },
-  listItemContainer: {
-    margin: 5,
-    borderRadius: 2,
-    backgroundColor: '#0c2c40'
-  },
-  listItemTitle: {
-    color: '#00F3B2',
-    textShadowColor: "#000",
-    textShadowOffset: {
-      width: 0,
-      height: 1,
-    },
-    textShadowRadius: 6.27
-  },
-  listItemSubtitle: {
-    color: '#8c8c8c'
-  },  
   emptyListContainer: {
     flex: 1,
     alignSelf: 'center',
