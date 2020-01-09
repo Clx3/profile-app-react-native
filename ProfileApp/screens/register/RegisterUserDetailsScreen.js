@@ -1,7 +1,8 @@
 import React, { Component, useState } from 'react';
 import { View, StyleSheet } from 'react-native';
-import { Input } from 'react-native-elements';
+import { Input, ButtonGroup, Text } from 'react-native-elements';
 import { RegisterModel } from '../../model/RegisterModel';
+import CustomInputNew from '../../components/CustomInputNew';
 
 export default function RegisterUserDetailsScreen(props) {
   const [description, setDescription] = useState(RegisterModel.description);
@@ -14,15 +15,32 @@ export default function RegisterUserDetailsScreen(props) {
 
   return (
     <View style={styles.container}>
-      <Input
-        label='Description'
+      <CustomInputNew 
+        icon='user'
+        label='Tell a little about yourself'
+        placeholder='...'
         multiline
-        lines={5}
-        value={RegisterModel.description}
-        onChangeText={(value) => onDescriptionInputChange(value)}
-        labelStyle={styles.labelStyle}
-        inputStyle={styles.inputStyle}
-        placeholder='Please give a little description about yourself...' />
+        numberOfLines={3}
+        onChangeText={(value) => onDescriptionInputChange(value)} />
+    </View>
+  );
+}
+
+/**
+ * TODO: Implement my functionality
+ * @param {*} props 
+ */
+function GenderPicker(props) {
+  const buttons = ['Male', 'Female', 'Other'];
+ 
+  return (
+    <View style={styles.genderPickerContainer}>
+      <Text>VITTU</Text>
+      <ButtonGroup
+        onPress={() => null}
+        selectedIndex={1}
+        buttons={buttons}
+         />
     </View>
   );
 }
@@ -30,15 +48,10 @@ export default function RegisterUserDetailsScreen(props) {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#303030',
     alignItems: 'center',
-    justifyContent: 'center'
+    backgroundColor: '#061620',
   },
-  labelStyle: {
-    color: 'white',
-    marginLeft: 5
-  },
-  inputStyle: {
-    color: 'white'
+  genderPickerContainer: {
+    width: '100%'
   }
 });

@@ -11,6 +11,7 @@ import {
 import Icon from 'react-native-vector-icons/FontAwesome';
 import { getIsUsernameValid } from '../../api/Api';
 import { RegisterModel } from '../../model/RegisterModel';
+import CustomInputNew from '../../components/CustomInputNew';
 
 export default function RegisterUsernameScreen(props) {
   const [username, setUsername] = useState(RegisterModel.username);
@@ -21,14 +22,14 @@ export default function RegisterUsernameScreen(props) {
   let usernameTimeoutId = null;
 
   useEffect(() => {
-    if(this.usernameTimeoutId) {
-      clearInterval(this.usernameTimeoutId);
-      this.usernameTimeoutId = null;
-    }
-
-    this.usernameTimeoutId = setTimeout(() => {
-      validateUsername();
-    }, 1000);
+      if(this.usernameTimeoutId) {
+        clearInterval(this.usernameTimeoutId);
+        this.usernameTimeoutId = null;
+      }
+      
+      this.usernameTimeoutId = setTimeout(() => {
+        validateUsername();
+      }, 1000);
   }, [username]);
 
   /**
@@ -44,7 +45,6 @@ export default function RegisterUsernameScreen(props) {
 
   async function validateUsername() {
     if(username.length < 4) {
-      console.log(username)
       setErrorMsg('Username must be more than 3 characters long!');
       setIsValidUsername(false);
     } else {
@@ -67,15 +67,15 @@ export default function RegisterUsernameScreen(props) {
   function LeftIcon() {
     if(isLoading === true) {
       return (
-        <ActivityIndicator size="small" color="#00ff00" />
+        <ActivityIndicator size="small" color="#00F3B2" />
       );
     } else if(isValidUsername !== null && isValidUsername === true) {
       return (
-        <Icon name='check' size={30} color='#00FF00' />
+        <Icon name='check' size={27} color='#00FF00' />
       );
     } else if (isValidUsername !== null && isValidUsername === false) {
       return (
-        <Icon name='times' size={30} color='#CC0000' />
+        <Icon name='times' size={27} color='#CC0000' />
       );
     }
     return null;
@@ -87,12 +87,13 @@ export default function RegisterUsernameScreen(props) {
         label='Please choose an username'
         labelStyle={styles.labelStyle}
         inputStyle={styles.inputStyle}
-        placeholder='username...'
+        placeholder='username'
+        placeholderTextColor='#bfbfbf'
         errorMessage={errorMsg}
         value={username}
         onChangeText={(value) => onUsernameInputChange(value)}
         rightIcon={ <LeftIcon/> }
-        leftIcon={ <Icon name='user' size={30} color='#4EDCFF' /> } />
+        leftIcon={ <Icon style={{marginRight: 5}} name='user' size={27} color='#00F3B2' /> } />
     </View>
   );
 }
@@ -100,7 +101,7 @@ export default function RegisterUsernameScreen(props) {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#303030',
+    backgroundColor: '#061620',
     alignItems: 'center',
     justifyContent: 'center'
   },
@@ -109,6 +110,6 @@ const styles = StyleSheet.create({
     marginLeft: 5
   },
   inputStyle: {
-    color: 'white'
+    color: '#00f3b2'
   }
 });

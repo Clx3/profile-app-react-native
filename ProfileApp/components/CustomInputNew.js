@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 import { View, StyleSheet } from 'react-native';
-import { Text, Input } from 'react-native-elements';
+import { Text, Input, Divider } from 'react-native-elements';
 import Icon from 'react-native-vector-icons/FontAwesome';
 
-export default function CustomInput(props) {
+export default function CustomInputNew(props) {
 
   function renderIcon() {
     if(props.icon) {
@@ -15,18 +15,19 @@ export default function CustomInput(props) {
 
   return (
     <Input
-      placeholder={props.placeholder}
-      placeholderTextColor='#E9E9E9'
       label={props.label}
       labelStyle={styles.label}
+      placeholder={props.placeholder}
+      placeholderTextColor='#bfbfbf'
+      inputStyle={styles.inputStyle}
       rightIcon={renderIcon()}
       {...props}/>
   );
 }
 
-CustomInput.defaultProps = {
-  label: 'Label',
-  placeholder: 'placeholder'
+CustomInputNew.defaultProps = {
+  label: '',
+  placeholder: '',
 };
 
 const styles = StyleSheet.create({
@@ -37,4 +38,7 @@ const styles = StyleSheet.create({
     fontSize: 17,
     paddingBottom: 3
   },
+  inputStyle: {
+    color: '#00f3b2'
+  }
 });
