@@ -38,6 +38,12 @@ export async function createProfile(username, description) {
   });
 }
 
+export async function putProfile(profile) {
+  const apiAxios = await getAxiosAsync();
+
+  return apiAxios.put('profile/me/', profile);
+}
+
 export async function getAllProfilesByUsernameSearch(searchText) {
   const apiAxios = await getAxiosAsync();
 
