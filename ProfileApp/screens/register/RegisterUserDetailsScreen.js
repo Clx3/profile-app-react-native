@@ -1,13 +1,16 @@
 import React, { Component, useState } from 'react';
 import { View, StyleSheet } from 'react-native';
-import { Input, ButtonGroup, Text } from 'react-native-elements';
+import { Input, Text } from 'react-native-elements';
 import { RegisterModel } from '../../model/RegisterModel';
-import CustomInputNew from '../../components/CustomInputNew';
 
 export default function RegisterUserDetailsScreen(props) {
   const [description, setDescription] = useState(RegisterModel.description);
 
-  // Called when the description input changes
+  /**
+   * Called when the description input changes.
+   * 
+   * @param {*} value 
+   */
   function onDescriptionInputChange(value) {
     RegisterModel.description = value;
     setDescription(RegisterModel.description);
@@ -15,32 +18,25 @@ export default function RegisterUserDetailsScreen(props) {
 
   return (
     <View style={styles.container}>
-      <CustomInputNew 
-        icon='user'
-        label='Tell a little about yourself'
-        placeholder='...'
-        multiline
-        numberOfLines={3}
-        onChangeText={(value) => onDescriptionInputChange(value)} />
-    </View>
-  );
-}
-
-/**
- * TODO: Implement my functionality
- * @param {*} props 
- */
-function GenderPicker(props) {
-  const buttons = ['Male', 'Female', 'Other'];
- 
-  return (
-    <View style={styles.genderPickerContainer}>
-      <Text>VITTU</Text>
-      <ButtonGroup
-        onPress={() => null}
-        selectedIndex={1}
-        buttons={buttons}
-         />
+      <View style={styles.descriptionContainer}>
+        <View style={styles.descriptionHeaderContainer}>
+          <View style={{justifyContent: 'flex-end'}}>
+            <Text style={styles.label}>Give a little description about yourself</Text>
+          </View>
+        </View>
+        <View style={styles.descriptionTextContainer}>
+          <Input 
+            style={styles.descriptionText} 
+            value={description}
+            inputStyle={styles.descriptionText}
+            placeholder='Type something...'
+            placeholderTextColor='#00b383'
+            maxLength={499}
+            multiline
+            onChangeText={(value) => onDescriptionInputChange(value)}
+            inputContainerStyle={{ borderBottomWidth: 0 }} />
+        </View>
+      </View>
     </View>
   );
 }
@@ -48,10 +44,30 @@ function GenderPicker(props) {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    alignItems: 'center',
     backgroundColor: '#061620',
+    justifyContent: 'center'
   },
-  genderPickerContainer: {
-    width: '100%'
+  descriptionContainer: {
+    flex: 0.3,
+    margin: 10
+  },
+  descriptionHeaderContainer: {
+    flexDirection: 'row',
+    justifyContent: 'space-between'
+  },
+  label: {
+    fontWeight: 'bold',
+    color: '#00F3B2',
+    fontSize: 17,
+    paddingBottom: 3
+  },
+  descriptionTextContainer: {
+    flex: 1,
+    bottom: 0,
+    backgroundColor: '#081e2b'
+  },
+  descriptionText: {
+    fontSize: 12,
+    color: '#00e6a8'
   }
 });

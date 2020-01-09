@@ -1,6 +1,6 @@
 import React, { Component, useEffect, useState } from 'react';
 import { StyleSheet, Text, View } from 'react-native';
-import { Button, Image } from 'react-native-elements';
+import { Button, Image, SocialIcon } from 'react-native-elements';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import { authorizeAsync, getAuthAsync } from '../auth/Auth';
 import { getProfile } from '../api/Api';
@@ -30,7 +30,6 @@ export default function LoginScreen(props) {
   async function onLoginBtnPress() {
     if(!isAuthenticating) {
       setIsAuthenticating(true);
-      console.log('VITTU')
 
       await authorizeAsync(() => {
         redirectUser()
@@ -50,8 +49,9 @@ export default function LoginScreen(props) {
     try {
       const response = await getProfile();
 
-      navigation.navigate('Friends', { profile: response.data });
+      navigation.navigate('ProfileScr', { profile: response.data });
     } catch(error) {
+      console.log(error)
       if(error.response.status) {
         switch(error.response.status) {
           case 404:
@@ -73,25 +73,13 @@ export default function LoginScreen(props) {
       </View>
       <View style={styles.loginBtnContainer}>
         <Text style={styles.welcomeText}>Welcome! Please use one of the providers below to sign in.</Text>
-        <LoginButton onPress={() => onLoginBtnPress()} />
+        <SocialIcon
+          title='Sign In With Google'
+          button
+          type='google'
+          onPress={async() => await onLoginBtnPress()} />
       </View>
     </View>
-  );
-}
-
-function LoginButton(props) {
-  return (
-    <Button
-      icon={
-        <Icon
-          name="google"
-          size={25}
-          color="white"/>
-      }
-      iconRight
-      titleStyle={styles.loginBtnTitle}
-      title="Sign in with Google" 
-      onPress={() => props.onPress()}/>
   );
 }
 
@@ -117,8 +105,5 @@ const styles = StyleSheet.create({
     flex: 2,   
     justifyContent: 'center',
     paddingBottom: 50
-  },
-  loginBtnTitle: {
-    marginRight: 10
   }
 });
