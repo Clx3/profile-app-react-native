@@ -1,8 +1,9 @@
 import React, { Component, useState, useEffect } from 'react';
-import { View, StyleSheet, FlatList} from 'react-native';
+import { View, StyleSheet, FlatList, Modal, Text} from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import { getFriends, deleteFriend } from '../../../api/Api';
 import ProfileListItem from '../../../components/ProfileListItem';
+import MessageModal from '../../../components/MessageModal';
 
 /**
  * This screen component renders a list of users friends.
@@ -13,10 +14,19 @@ import ProfileListItem from '../../../components/ProfileListItem';
  */
 export default function FriendsScreen(props) {
   const [listData, setListData] = useState([]); // Contains list of users friends
+  const [modalVisible, setModalVisible] = useState(false);
+  const [modalProfile, setModalProfile] = useState(null);
 
   useEffect(() => {
     updateListData();
   }, []);
+
+  useEffect(() => {
+    if(modalProfile !== null) {
+      setModalVisible(true);
+    }
+  }, [modalProfile]);
+
 
   /**
    * Fetches users friends from the API and sets the
@@ -32,16 +42,34 @@ export default function FriendsScreen(props) {
     }
   }
 
+  function onMsgButtonPress(profile) {
+    setModalProfile(profile);
+  }
+
+  function onModalClosePress() {
+    setModalProfile(null);
+    setModalVisible(false);
+  }
+
   return (
     <View style={styles.container}>
-      <FlatList 
-        data={listData}
-        keyExtractor={item => `${item.id}`}
-        renderItem={({item}) => 
-          <ProfileListItem 
-            profile={item}
-            RightIcon={<RightIcon profile={item} friendRemoveCallBack={async() => await updateListData()} />} />
-        }/>
+        <FlatList 
+          data={listData}
+          keyExtractor={item => `${item.id}`}
+          renderItem={({item}) => 
+            <ProfileListItem 
+              profile={item}
+              RightIcon={
+                <RightIcons 
+                  profile={item}
+                  onMsgButtonPress={() => onMsgButtonPress(item)}
+                  friendRemoveCallBack={async() => await updateListData()}/>
+              }/>
+          }/>
+      <MessageModal 
+        visible={modalVisible}
+        profile={modalProfile}
+        onClosePress={() => onModalClosePress()}/>
     </View>
   );
 }
@@ -53,15 +81,8 @@ export default function FriendsScreen(props) {
  * 
  * @param {*} props 
  */
-function RightIcon(props) {
-  const { profile, friendRemoveCallBack } = props;
-
-  /**
-   * Called when the message icon is pressed.
-   */
-  function onSendMsgPress() {
-    alert('todo!');
-  }
+function RightIcons(props) {
+  const { profile, onMsgButtonPress, friendRemoveCallBack } = props;
 
   /**
    * Called when the remove button is pressed.
@@ -80,11 +101,13 @@ function RightIcon(props) {
 
   return (
     <View style={styles.rightIconsContainer}>
-      <Icon name='comment' size={27} color='#00F3B2' onPress={() => onSendMsgPress()} />
+      <Icon name='comment' size={27} color='#00F3B2' onPress={() => onMsgButtonPress()} />
       <Icon name='minus-circle' size={27} color='#993333' onPress={() => onRemoveFriendPressAsync()} />
     </View>
   );
 }
+
+
 
 const styles = StyleSheet.create({
   container: {
