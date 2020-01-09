@@ -84,3 +84,12 @@ export async function postImage(uri) {
     }
   });
 }
+
+export async function putMessage(receiverId, msg) {
+  const apiAxios = await getAxiosAsync();
+
+  return apiAxios.put('message/', {
+    receiverId: receiverId,
+    content: msg
+  });
+}
