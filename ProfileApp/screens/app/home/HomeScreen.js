@@ -2,14 +2,28 @@ import React, { Component, useState, useEffect } from 'react';
 import { View, StyleSheet, FlatList, Text, RefreshControl } from 'react-native';
 import { getAllProfilesByUsernameSearch } from '../../../api/Api';
 import ProfileListItem from '../../../components/ProfileListItem';
+import ProfileModal from '../../../components/ProfileModal';
 
 export default function HomeScreen(props) {
   const[loading, setLoading] = useState(false);
   const[listData, setListData] = useState([]);
+  const[modalVisible, setModalVisible] = useState(false);
+  const[modalData, setModalData] = useState(null);
 
   useEffect(() => {
     updateListData();
   }, []);
+
+  useEffect(() => {
+    if(modalData !== null) {
+      setModalVisible(true);
+    }
+  }, [modalData]);
+
+  function onModalClose() {
+    setModalData(null);
+    setModalVisible(false);
+  }
 
   const onListRefresh = React.useCallback(() => {
     setLoading(true);
@@ -38,8 +52,13 @@ export default function HomeScreen(props) {
         refreshControl={<RefreshControl refreshing={loading} onRefresh={onListRefresh} />}
         renderItem={({item}) => 
           <ProfileListItem 
-            profile={item} />
+            profile={item}
+            onListItemPress={() => setModalData(item)} />
         }/>
+      <ProfileModal
+        visible={modalVisible}
+        profile={modalData}
+        onClosePress={() => onModalClose(false)} />
     </View>
   );
 }
@@ -51,7 +70,8 @@ const styles = StyleSheet.create({
   },
   headerText: {
     alignSelf: 'center',
-    color: '#FFFFFF',
-    fontSize: 20
+    color: '#00F3B2',
+    fontSize: 20,
+    fontWeight: 'bold'
   }
 });
