@@ -77,6 +77,7 @@ export default function RegisterUsernameScreen(props) {
         placeholderTextColor='#bfbfbf'
         errorMessage={errorMsg}
         value={username}
+        maxLength={15}
         onChangeText={(value) => onUsernameInputChange(value)}
         rightIcon={ <LeftIcon/> }
         leftIcon={ <Icon style={{marginRight: 5}} name='user' size={27} color='#00F3B2' /> } />

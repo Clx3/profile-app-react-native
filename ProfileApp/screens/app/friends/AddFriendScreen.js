@@ -5,6 +5,7 @@ import CustomInput from '../../../components/CustomInput';
 import { getAllProfilesByUsernameSearch, createFriend } from '../../../api/Api';
 import IconText from '../../../components/IconText';
 import ProfileListItem from '../../../components/ProfileListItem';
+import { ScrollView } from 'react-native-gesture-handler';
 
 /**
  * This screen component renders a screen where user is
@@ -68,7 +69,7 @@ export default function AddFriendScreen(props) {
           onChangeText={async(value) => await onFriendSearchChangeAsync(value)} />
       </View>
       <Text style={styles.header}>Results</Text>
-      <KeyboardAvoidingView behavior='height' style={styles.resultContainer}>
+      <ScrollView style={styles.resultContainer}>
         <FlatList
           contentContainerStyle={{flex: 1}}
           data={listData}
@@ -79,7 +80,7 @@ export default function AddFriendScreen(props) {
               RightIcon={<IconText name='plus-circle' text='Add friend' onPress={async() => await onAddFriendBtnPressAsync(item)} />}/>
           }
           ListEmptyComponent={<EmptyList/>} />
-        </KeyboardAvoidingView>
+        </ScrollView>
     </View>
   );
 }
