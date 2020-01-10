@@ -6,13 +6,14 @@ import ProfilePicture from './ProfilePicture';
 import { cutString } from '../Util';
 
 export default function ProfileListItem(props) {
-  const { profile, containerStyle, titleStyle, subtitleStyle, RightIcon } = props;
+  const { profile, containerStyle, titleStyle, subtitleStyle, RightIcon, onListItemPress } = props;
 
   return (
     <ListItem
       title={profile.username}
       containerStyle={containerStyle}
       titleStyle={titleStyle}
+      onPress={onListItemPress}
       leftIcon={ <ProfilePicture profileId={profile.id} size="medium" rounded /> }
       rightIcon={ RightIcon }
       subtitle={cutString(profile.description, 40)} 
@@ -44,5 +45,6 @@ ProfileListItem.defaultProps = {
   containerStyle: styles.containerStyle,
   titleStyle: styles.titleStyle,
   subtitleStyle: styles.subtitleStyle,
-  RightIcon: () => null
+  RightIcon: () => null,
+  onListItemPress: () => null
 }
