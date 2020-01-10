@@ -54,6 +54,8 @@ function ProfilePictureEditor(props) {
   return (
     <View style={styles.profilePictureEditorContainer}>
       <ProfilePicture
+        updateOnFocus={true}
+        navigation={navigation}
         containerStyle={styles.avatarContainer}
         size="xlarge"
         rounded />

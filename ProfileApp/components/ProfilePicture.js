@@ -20,6 +20,13 @@ export default function ProfilePicture(props) {
     updateImgSourceAsync();
   }, []);
 
+  if(props.updateOnFocus && props.updateOnFocus === true) {
+    props.navigation.addListener('didFocus', async() => {
+      setLoadError(false)
+      await updateImgSourceAsync();
+    })
+  }
+
   async function updateImgSourceAsync() {
     const { profileId } = props; // if set to -1, will indicate users own profile
     const authObj = await getAuthAsync();

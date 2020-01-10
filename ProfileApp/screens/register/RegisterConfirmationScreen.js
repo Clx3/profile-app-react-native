@@ -24,9 +24,9 @@ export default function RegisterConfirmationScreen(props) {
       navigation.navigate('ProfileScr', { profile: response.data });
     } catch(error) {
       console.log(error);
+      setLoading(false);
       alert('Error registering! Try again.')
     }
-    setLoading(false);
   }
 
   return (
