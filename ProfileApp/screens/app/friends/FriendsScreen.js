@@ -103,17 +103,18 @@ function RightIcons(props) {
     try {
       const response = await deleteFriend(profile.id);
 
-      alert('deleted!');
+      alert('Friend removed!');
       friendRemoveCallBack(); // We need to use callback so we can refresh friend list after the friend removal
     } catch(error) {
+      alert('Error removing friend! Try again.')
       console.log(error);
     }
   }
 
   return (
     <View style={styles.rightIconsContainer}>
-      <Icon name='comment' size={27} color='#00F3B2' onPress={() => onMsgButtonPress()} />
-      <Icon name='minus-circle' size={27} color='#993333' onPress={() => onRemoveFriendPressAsync()} />
+      <IconText containerStyle={styles.iconContainer} name='comment' size={30} color='#00F3B2' onPress={() => onMsgButtonPress()} />
+      <IconText containerStyle={styles.iconContainer} name='minus-circle' size={30} color='#993333' onPress={() => onRemoveFriendPressAsync()} />
     </View>
   );
 }
@@ -151,5 +152,8 @@ const styles = StyleSheet.create({
   },
   rightIconsContainer: {
     flexDirection: 'row'
+  },
+  iconContainer: {
+    margin: 8
   }
 });

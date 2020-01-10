@@ -53,9 +53,9 @@ export default function AddFriendScreen(props) {
     try {
       const response = await createFriend(profile.id);
 
-      console.log(response.data);
+      alert('Friend added!');
     } catch(error) {
-      // TODO: handle error 409 conflict (Already a friend)
+      alert('Error adding friend, maybe you are already friends! Try again.');
       console.log(error);
     }
   }
