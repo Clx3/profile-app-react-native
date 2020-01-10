@@ -16,7 +16,8 @@ export default function CustomInput(props) {
   return (
     <Input
       placeholder={props.placeholder}
-      placeholderTextColor='#E9E9E9'
+      placeholderTextColor='#00b383'
+      inputStyle={{color: '#00e6a8'}}
       label={props.label}
       labelStyle={styles.label}
       rightIcon={renderIcon()}
